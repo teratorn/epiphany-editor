@@ -118,7 +118,6 @@ class MapEditor:
     fileName = None
     modified = False # do we need to prompt for unsaved changes?
 
-    # yes, these need to be editable...
     levelName = "foo"
     author = "bar"
     maxTime = "100"
@@ -222,7 +221,6 @@ class MapEditor:
             return
 
         if os.path.isdir(fn):
-            #error
             dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.INFO,
                                        buttons=Gtk.ButtonsType.OK,
                                        text="You must provide a file name to save to. "
@@ -302,7 +300,6 @@ class MapEditor:
         for x in range(start_x, start_x+self.fcols):
             for y in range(start_y, start_y+self.frows):
                 blit(grid[x][y], ( (x - start_x) * 32, (y - start_y) * 32) )
-
 
     def handleQuit(self):
         if self.modified:
@@ -433,7 +430,6 @@ class MapEditor:
         self.lastBox = (x, x+32, y, y+32)
         self.screen.blit(self.tile, (x, y))
         pygame.display.update((x,y,32,32))
-
 
     def event_KEYUP(self, event):
         key = event.key
@@ -574,6 +570,7 @@ class MapEditor:
         self.handleQuit()
         raise SystemExit
 
+
 def showError(msg):
     dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.OK,
@@ -594,9 +591,6 @@ def usage():
 
 
 def main():
-    #call set_mode again to make sure the window manager frame matches our
-    #screen size
-    #screen = pygame.display.set_mode((640, 544),  HWSURFACE|HWPALETTE|RESIZABLE)
     if len(sys.argv) > 2:
         usage()
 
