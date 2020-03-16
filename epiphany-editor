@@ -187,17 +187,18 @@ class MapEditor:
     def saveFile(self):
         try:
             f = open(self.fileName, "w")
-            f.write("set name \"{}\";\n".format(self.levelName))
-            f.write("set author \"{}\";\n".format(self.author))
-            f.write("set maxtime {};\n".format(self.maxTime))
-            for x in range(30):
-                for y in range(30):
-                    f.write("put {} ({},{});\n".format(map_names[self.grid[x+1][y+1]],
-                                                       y+1, x+1))
+            f.write(f"set name \"{self.levelName}\";\n")
+            f.write(f"set author \"{self.author}\";\n")
+            f.write(f"set maxtime {self.maxTime};\n")
+            for x in range(1, 31):
+                for y in range(1, 31):
+                    tileName = map_names[self.grid[x][y]]
+                    f.write(f"put {tileName} ({x},{y});\n")
 
             f.write("write;\n")
             f.write("view;\n")
-            f.write("set minscore {};\n".format(repr(self.minScore).replace("'", '"')))
+            minScore = repr(self.minScore).replace("'", '"')
+            f.write(f"set minscore {minScore};\n")
             f.close()
         except Exception as e:
             import traceback
@@ -579,7 +580,7 @@ class MapEditor:
 def showError(msg):
     dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.OK,
-                               text="An error occured:\n\n{}".format(msg))
+                               text=f"An error occured:\n\n{msg}")
     dialog.run()
     dialog.destroy()
     gtk_loop_alot()
@@ -591,7 +592,7 @@ def gtk_loop_alot():
 
 
 def usage():
-    sys.stderr.write('Usage: {} [ mylevel.map ]\n'.format(sys.argv[0]))
+    sys.stderr.write(f'Usage: {sys.argv[0]} [ mylevel.map ]\n')
     sys.exit(1)
 
 

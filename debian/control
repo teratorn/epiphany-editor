@@ -5,7 +5,7 @@ Maintainer: teratorn <epiphany-editor /AT/ teratorn /DOT/ net>
 Uploaders: Someone <someone@lists.alioth.debian.org>
 Build-Depends: debhelper-compat (= 12),
                dh-sequence-python3,
-               python3,
+               python3 (>=3.6~),
                python3-setuptools,
                python3-gi,
                python3-pygame
