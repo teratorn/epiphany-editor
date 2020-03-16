@@ -385,7 +385,6 @@ class MapEditor:
             self.handleFieldClick(*event.pos)
 
     def handleFieldClick(self, x, y):
-        self.modified = True
         # the column and row number ON THE SCREEN, not in the grid
         col = x//32
         row = y//32
@@ -405,6 +404,10 @@ class MapEditor:
         # position of this field row/col in the grid
         grid_x = col + self.gridOrigin[0]
         grid_y = row + self.gridOrigin[1]
+
+        if self.grid[grid_x][grid_y] == self.tile:
+            # this position is already the requested tile: do nothing
+            return
 
         # is it a tile that only appears once?
         if self.tile in self.onlyOne:
@@ -433,6 +436,7 @@ class MapEditor:
         self.lastBox = (x, x+32, y, y+32)
         self.screen.blit(self.tile, (x, y))
         pygame.display.update((x,y,32,32))
+        self.modified = True
 
     def event_KEYUP(self, event):
         key = event.key
@@ -528,8 +532,8 @@ class MapEditor:
             hBox.show()
             r = dialog.run()
 
-            # XXX TODO only set self.modified if things changed
             if r == Gtk.ResponseType.ACCEPT:
+                h = self._hashMapInfo()
                 self.levelName = level_input.get_text()
                 self.author = author_input.get_text()
                 self.maxTime = maxtime_input.get_text()
@@ -538,10 +542,16 @@ class MapEditor:
                     self.minScore = int(self.minScore)
                 except ValueError:
                     pass
-                self.modified = True
+
+                # anything changed?
+                if h != self._hashMapInfo():
+                    self.modified = True
 
             dialog.destroy()
             gtk_loop_alot()
+
+    def _hashMapInfo(self):
+        return hash( (self.levelName, self.author, self.maxTime, self.minScore) )
 
     def getGamePath(self):
         gamePath = 'epiphany'
