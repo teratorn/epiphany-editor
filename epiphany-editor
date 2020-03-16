@@ -41,7 +41,8 @@ except:
     print("This is the actual Python error we encountered:")
     raise
 
-image_paths = ['/usr/share/epiphany-editor/tiles.tga', '/usr/local/share/epiphany-editor/tiles.tga']
+image_paths = ['/usr/share/epiphany-editor/tiles.tga',
+               '/usr/local/share/epiphany-editor/tiles.tga']
 
 # crappy attempt to locate the path to this file so that we can try and load
 # tiles.tga from the same directory
@@ -73,18 +74,12 @@ if tiles_surface is None:
 pygame.init()
 screen = pygame.display.set_mode((800, 704),  HWSURFACE|HWPALETTE|RESIZABLE)
 
-# this was an attempt at a C module that would set window resize hints to the tile size
-# so that the window would "snap" to new sizes on 32 pixel increments. I decided it wasn't
-# worth it :)
-#import _x11_hints
-#data = pygame.display.get_wm_info()
-#_x11_hints.set_resize_incr(data['wmwindow'], 32, 32)
-#_x11_hints.set_resize_incr(data['wmwindow'])
-
 pygame.display.set_caption('Epiphany Map Editor %s' % (version,))
 pygame.key.set_repeat(200, 30)
 
-tile_names = ["grass", "boulder", "emerald", "sapphire", "brick", "bomb", "doorRed", "doorGreen", "doorBlue", "doorYellow", "steel", "wood", "peperon", "tomato", "empty", "exit", "player", "keyRed", "keyGreen", "keyBlue", "keyYellow"]
+tile_names = ["grass", "boulder", "emerald", "sapphire", "brick", "bomb", "doorRed",
+              "doorGreen", "doorBlue", "doorYellow", "steel", "wood", "peperon", "tomato",
+              "empty", "exit", "player", "keyRed", "keyGreen", "keyBlue", "keyYellow"]
 tiles = {}
 tiles_list = []
 
@@ -98,7 +93,14 @@ del tiles_surface
 tileRow1 = tiles_list[:10]
 tileRow2 = tiles_list[10:]
 
-map_names = {tiles["grass"]:"grass", tiles["boulder"]:"boulder", tiles["emerald"]:"emerald", tiles["sapphire"]:"sapphire", tiles["brick"]:"brick", tiles["bomb"]:"flintstone", tiles["steel"]:"steel", tiles["wood"]:"wood", tiles["peperon"]:"peperon", tiles["tomato"]:"tomato", tiles["empty"]:"unknown", tiles["exit"]:"exit", tiles["player"]:"player", tiles["keyRed"]:"red_key", tiles["keyGreen"]:"green_key", tiles["keyBlue"]:"blue_key", tiles["keyYellow"]:"yellow_key", tiles["doorRed"]:"red_door", tiles["doorGreen"]:"green_door", tiles["doorBlue"]:"blue_door", tiles["doorYellow"]:"yellow_door"}
+map_names = {tiles["grass"]:"grass", tiles["boulder"]:"boulder", tiles["emerald"]:"emerald",
+             tiles["sapphire"]:"sapphire", tiles["brick"]:"brick", tiles["bomb"]:"flintstone",
+             tiles["steel"]:"steel", tiles["wood"]:"wood", tiles["peperon"]:"peperon",
+             tiles["tomato"]:"tomato", tiles["empty"]:"unknown", tiles["exit"]:"exit",
+             tiles["player"]:"player", tiles["keyRed"]:"red_key", tiles["keyGreen"]:"green_key",
+             tiles["keyBlue"]:"blue_key", tiles["keyYellow"]:"yellow_key",
+             tiles["doorRed"]:"red_door", tiles["doorGreen"]:"green_door",
+             tiles["doorBlue"]:"blue_door", tiles["doorYellow"]:"yellow_door"}
 
 map_names_to_tile = {}
 for k,v in map_names.items():
@@ -123,7 +125,8 @@ class MapEditor:
     minScore = "auto"
 
     # tiles that can only appear once
-    onlyOne = [tiles["keyRed"], tiles["keyGreen"], tiles["keyBlue"], tiles["keyYellow"], tiles["player"], tiles["exit"]]
+    onlyOne = [tiles["keyRed"], tiles["keyGreen"], tiles["keyBlue"], tiles["keyYellow"],
+               tiles["player"], tiles["exit"]]
     # map the single-use tiles to their current position in the grid
     oncePos = {}
     # e.g. oncePos[tiles["keyRed"]] = (3,2)
@@ -190,7 +193,8 @@ class MapEditor:
             f.write("set maxtime {};\n".format(self.maxTime))
             for x in range(30):
                 for y in range(30):
-                    f.write("put {} ({},{});\n".format(map_names[self.grid[x+1][y+1]], y+1, x+1))
+                    f.write("put {} ({},{});\n".format(map_names[self.grid[x+1][y+1]],
+                                                       y+1, x+1))
 
             f.write("write;\n")
             f.write("view;\n")
@@ -219,14 +223,19 @@ class MapEditor:
 
         if os.path.isdir(fn):
             #error
-            dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text="You must provide a file name to save to. File remains UNSAVED.")
+            dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.INFO,
+                                       buttons=Gtk.ButtonsType.OK,
+                                       text="You must provide a file name to save to. "
+                                       "File remains UNSAVED.")
             dialog.run()
             dialog.destroy()
             gtk_loop_alot()
             return
 
         if os.path.exists(fn):
-            dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK_CANCEL, text="File already exists! Overwrite?")
+            dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.INFO,
+                                       buttons=Gtk.ButtonsType.OK_CANCEL,
+                                       text="File already exists! Overwrite?")
             r = dialog.run()
             dialog.destroy()
             gtk_loop_alot()
@@ -298,7 +307,9 @@ class MapEditor:
     def handleQuit(self):
         if self.modified:
             # save first?
-            dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.YES_NO, text="You have unsaved changes! Save them now?")
+            dialog = Gtk.MessageDialog(message_type=Gtk.MessageType.QUESTION,
+                                       buttons=Gtk.ButtonsType.YES_NO,
+                                       text="You have unsaved changes! Save them now?")
             r = dialog.run()
             dialog.destroy()
             gtk_loop_alot()
