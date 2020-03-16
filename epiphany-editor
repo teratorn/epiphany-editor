@@ -139,8 +139,8 @@ class MapEditor:
 
     font = pygame.font.Font(None, 25)
     color = pygame.color.Color("white")
-    helpLine1 = font.render("Keys: o = open; s = save; q = quit; e = edit map info", True, color)
-    helpLine2 = font.render("p = play test; hljk,left,right,down,up = scroll", True, color)
+    helpLine1 = font.render("Keys: o = open; s = save; a = save as; q = quit", True, color)
+    helpLine2 = font.render("e = edit map info; p = play test; hljk,←,→,↑,↓ = scroll", True, color)
 
     def __init__(self, screen):
         self.screen = screen
@@ -211,6 +211,8 @@ class MapEditor:
         """Return filename to save or None"""
         dialog = Gtk.FileChooserNative(title="Choose file to save",
                                        action=Gtk.FileChooserAction.SAVE)
+        if self.fileName:
+            dialog.set_filename(self.fileName)
 
         r = dialog.run()
         fn = dialog.get_filename()
@@ -438,6 +440,9 @@ class MapEditor:
                 self.saveFile()
             else:
                 self.saveAs()
+
+        if key == K_a:
+            self.saveAs()
 
         elif key == K_o:
             try:
