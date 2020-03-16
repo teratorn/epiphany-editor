@@ -255,9 +255,9 @@ class MapEditor:
         if r != Gtk.ResponseType.ACCEPT:
             return
 
-        self._loadFile(fn)
+        self.doLoadFile(fn)
 
-    def _loadFile(self, fn):
+    def doLoadFile(self, fn):
         f = open(fn, 'r')
 
         self.fileName = fn
@@ -604,7 +604,7 @@ def main():
 
     if len(sys.argv) == 2:
         mapFile = sys.argv[1]
-        p._loadFile(mapFile)
+        p.doLoadFile(mapFile)
     else:
         p.blitGrid()
 
