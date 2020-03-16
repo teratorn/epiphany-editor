@@ -1,0 +1,10 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: epiphany-editor
+Upstream-Contact: teratorn <epiphany-editor /AT/ teratorn /DOT/ net>
+Source: https://github.com/teratorn/epiphany-editor
+Copyright: 2005-2020 teratorn <epiphany-editor /AT/ teratorn /DOT/ net>
+License:   MIT
+
+Files:     *
+Copyright: 2005-2020 teratorn <epiphany-editor /AT/ teratorn /DOT/ net>
+License:   MIT

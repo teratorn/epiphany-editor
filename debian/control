@@ -1,0 +1,25 @@
+Source: epiphany-editor
+Section: games
+Priority: optional
+Maintainer: teratorn <epiphany-editor /AT/ teratorn /DOT/ net>
+Uploaders: Someone <someone@lists.alioth.debian.org>
+Build-Depends: debhelper-compat (= 12),
+               dh-sequence-python3,
+               python3,
+               python3-setuptools,
+               python3-gi,
+               python3-pygame
+Standards-Version: 4.4.0
+Vcs-Git: https://github.com/teratorn/epiphany-editor.git
+Homepage: https://github.com/teratorn/epiphany-editor
+
+Package: epiphany-editor
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         libgtk-3-0,
+         python3-gi,
+         epiphany
+Description: map editor for Epiphany (a Boulder Dash clone)
+ Epiphany-editor is a graphical application for creating and
+ editing Epiphany map files.
