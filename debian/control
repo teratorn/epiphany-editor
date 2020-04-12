@@ -21,5 +21,5 @@ Depends: ${python3:Depends},
          python3-gi,
          epiphany
 Description: map editor for Epiphany (a Boulder Dash clone)
- Epiphany-editor is a graphical application for creating and
+ epiphany-editor is a graphical application for creating and
  editing Epiphany map files.

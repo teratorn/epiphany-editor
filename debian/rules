@@ -6,6 +6,7 @@ export PYBUILD_NAME=epiphany-editor
 	dh $@ --buildsystem=pybuild
 
 override_dh_install:
-	mkdir -p debian/epiphany-editor/usr/share/epiphany-editor
-	cp tiles.tga pyro.map debian/epiphany-editor/usr/share/epiphany-editor/
+	mkdir -p debian/epiphany-editor/usr/share/epiphany-editor/maps
+	cp tiles.tga debian/epiphany-editor/usr/share/epiphany-editor/
+	cp maps/*.map debian/epiphany-editor/usr/share/epiphany-editor/maps/
 	dh_install

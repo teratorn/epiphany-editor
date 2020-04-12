@@ -11,7 +11,6 @@ setup(name="epiphany-editor",
       install_requires=['pygame', 'PyGObject'],
       classifiers=[
           'Development Status :: 5 - Production/Stable',
-          'Environment :: X11 Applications :: GTK',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3 :: Only',
